@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Sovellus](https://www.cs.helsinki.fi)
+* [Sovellus](http://siakkane.users.cs.helsinki.fi/tsoha/)
 * [Dokumentaatio](https://github.com/saranas/Tsoha-Bootstrap/blob/master/doc/tsoha-dokumentaatio.pdf)
 
 ## Työn aihe
