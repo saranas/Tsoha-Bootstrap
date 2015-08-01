@@ -1,10 +1,10 @@
-# Tietokantasovelluksen esittelysivu
+# Tietokantasovellus: Drinkkiarkisto
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Sovellus](http://siakkane.users.cs.helsinki.fi/tsoha/)
+* [Dokumentaatio](https://github.com/saranas/Tsoha-Bootstrap/blob/master/doc/tsoha-dokumentaatio.pdf)
 
 ## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
+[Drinkkiarkisto](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Drinkkiarkisto.html) 
