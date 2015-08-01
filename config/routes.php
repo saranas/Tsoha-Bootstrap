@@ -8,8 +8,16 @@
     HelloWorldController::drinks_list();
   });
   
-  $routes->get('/drink_show', function() {
-    HelloWorldController::drink_show();
+  $routes->get('/drinks_show', function() {
+    HelloWorldController::drinks_show();
+  });
+  
+  $routes->get('/drinks_edit', function() {
+    HelloWorldController::drinks_edit();
+  });
+  
+  $routes->get('/login', function() {
+    HelloWorldController::login();
   });
 
   $routes->get('/hiekkalaatikko', function() {

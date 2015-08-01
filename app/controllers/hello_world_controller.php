@@ -6,8 +6,16 @@
         View::make('suunnitelmat/drinks_list.html');
     }
     
-    public static function drink_show() {
-        View::make('suunnitelmat/drink_show.html');
+    public static function drinks_show() {
+        View::make('suunnitelmat/drinks_show.html');
+    }
+    
+    public static function drinks_edit() {
+        View::make('suunnitelmat/drinks_edit.html');
+    }
+    
+    public static function drinks_login() {
+        View::make('suunnitelmat/login.html');
     }
 
     public static function index(){
