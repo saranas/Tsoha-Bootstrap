@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Drinkkiarkisto</h1>
+
+  <p>
+    <a href="#" class="btn btn-success">Lisää uusi drinkki</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Juoman nimi</th>
+        <th>Tyyppi</th>
+        <th>Lasi</th>
+        <th>Status</th>
+        <th>Oma arvio</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan pelit tähän -->
+      <tr>
+        <td><a href="#">Coco Colada</a></td>
+        <td>Cocktail</td>
+        <td>Hurricane glass</td>
+        <td><label class="label label-danger">Mocktail</label></td>
+        <td>****</td>
+        <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
