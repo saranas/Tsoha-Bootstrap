@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Sovellus](http://siakkane.users.cs.helsinki.fi/tsoha/)
+* [Sovellus](http://siakkane.users.cs.helsinki.fi/tsoha/drinks_list)
 * [Dokumentaatio](https://github.com/saranas/Tsoha-Bootstrap/blob/master/doc/tsoha-dokumentaatio.pdf)
 
 Linkkejä alustaviin sivunäkymiin:
