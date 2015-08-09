@@ -10,6 +10,11 @@ Linkkejä alustaviin sivunäkymiin:
 * [Juoman tietojen muokkaus](http://siakkane.users.cs.helsinki.fi/tsoha/drinks_edit)
 * [Sisäänkirjautuminen](http://siakkane.users.cs.helsinki.fi/tsoha/drinks_login)
 
+Linkkejä todellisiin sivunäkymiin:
+* [Listausnäkymä](http://siakkane.users.cs.helsinki.fi/tsoha/drinks)
+* [Uuden juoman lisääminen](http://siakkane.users.cs.helsinki.fi/tsoha/addnew)
+* [Drinkkikohtainen sivu](http://siakkane.users.cs.helsinki.fi/tsoha/drinks/1)
+
 ## Työn aihe
 
 [Drinkkiarkisto](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Drinkkiarkisto.html) 
