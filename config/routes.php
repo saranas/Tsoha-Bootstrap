@@ -8,6 +8,14 @@
     DrinksController::index();
   });
   
+  $routes->post('/drinks', function() {
+    DrinksController::store();
+  });
+  
+  $routes->get('/addnew', function() {
+    DrinksController::create();
+  });
+  
   $routes->get('/show', function() {
     DrinksController::show();
   });

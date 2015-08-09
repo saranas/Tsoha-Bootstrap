@@ -15,7 +15,7 @@ CREATE TABLE Drinkki(
     nimi varchar(50) NOT NULL, --drinkin nimi
     tyyppi varchar(30), --shotti, cocktail tms
     alkoholiton boolean, --onko juoma täysin alkoholiton
-    kuvaus varchar(500), --selitysteksti juomalle
+    kuvaus text, --selitysteksti juomalle
     lasi INTEGER REFERENCES Lasi(lasi_id) --käytettävä lasi
 );
 

@@ -15,6 +15,20 @@ class DrinksController extends BaseController {
     public static function addnew() {        
         View::make('drinks/addnew.html');
     }
+    
+    public static function store() {
+        $params = $_POST;
+        $drink = new Drink(array(
+            'nimi' => $params['nimi'],
+            'tyyppi' => $params['tyyppi'],
+            'lasi' => $params['lasi'],
+            'alkoholiton' => $params['alkoholiton'],
+            'kuvaus' => $params['kuvaus']
+        ));
+        
+        $drink->save();
+        Redirect::to('/drinks/' . $drink->drinkki_id, array('message' => 'Resepti lisätty tietokantaan'));
+    }
 
 }
 
