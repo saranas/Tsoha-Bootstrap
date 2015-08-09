@@ -15,12 +15,14 @@ CREATE TABLE Drinkki(
     nimi varchar(50) NOT NULL, --drinkin nimi
     tyyppi varchar(30), --shotti, cocktail tms
     alkoholiton boolean, --onko juoma täysin alkoholiton
+    kuvaus varchar(500), --selitysteksti juomalle
     lasi INTEGER REFERENCES Lasi(lasi_id) --käytettävä lasi
 );
 
 CREATE TABLE Drinkkiainekset(
-    drinkki_id INTEGER REFERENCES Drinkki(drinkki_id) PRIMARY KEY,
-    aines_id INTEGER REFERENCES Aines(aines_id) PRIMARY KEY
+    id SERIAL PRIMARY KEY,
+    drinkki_id INTEGER REFERENCES Drinkki(drinkki_id),
+    aines_id INTEGER REFERENCES Aines(aines_id)
 );
 
 CREATE TABLE Kayttaja(

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Lisää uusi drinkki</h1>
+
+<form method='post' action='{{base_path}}/drinks'>
+    <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Tyyppi</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Lasi</label>
+        <input type="text" class="form-control">
+    </div>
+    
+    <div class="form-group">
+        <label>Ainesosat</label>
+        <input type="text" class="form-control" value="8cl ananasmehua">
+        <input type="text" class="form-control" value="4cl kookoskermaa">
+        <input type="text" class="form-control" value="Jäitä">
+        <input type="text" class="form-control" value="Koristeeksi ananasviipale">
+    </div>
+     <div class="form-group">
+        <button type="submit" class="btn btn-primary">Lisää ainesosa</button>
+    </div>
+    
+    <div class="form-group">
+        <label>Työvaiheet</label>
+        <input type="text" class="form-control" value="Tee jotain">
+        <input type="text" class="form-control" value="Tee jotain muuta">
+        <input type="text" class="form-control" value="Jäitä">
+        <input type="text" class="form-control" value="Koristeeksi ananasviipale">
+    </div>
+     <div class="form-group">
+        <button type="submit" class="btn btn-primary">Lisää työvaihe</button>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            <input type="checkbox">
+            Alkoholiton
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <textarea class="form-control">
+        </textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+</form>
+{% endblock %}

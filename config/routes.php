@@ -1,7 +1,23 @@
 <?php
 
   $routes->get('/', function() {
-    HelloWorldController::index();
+    DrinksController::index();
+  });
+  
+  $routes->get('/drinks', function() {
+    DrinksController::index();
+  });
+  
+  $routes->get('/show', function() {
+    DrinksController::show();
+  });
+  
+   $routes->get('/addnew', function() {
+    DrinksController::addnew();
+  });
+  
+  $routes->get('/drinks/:drinkki_id', function($drinkki_id) {
+    DrinksController::show($drinkki_id);
   });
   
   $routes->get('/drinks_list', function() {

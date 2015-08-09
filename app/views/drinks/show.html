@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Coco Colada</h1>
-  <img src="{{base_path}}/app/views/pinacolada.jpg" alt="Coco Colada" />
+  <h1>{{drinks[0].nimi}}</h1>
+<!--  <img src="{{base_path}}/app/views/pinacolada.jpg" alt="Coco Colada" />-->
   <!-- Painikkeet tähän -->
   <p>
     <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
   </p>
+<!--  Tyyppi-->
+<p>
+    Tyyppi: {{drinks[0].tyyppi}}
+</p>
+  
   <!-- Ainesosat tulevat listana tähän -->
   <ul>
     <li><strong>8 cl</strong> ananasmehua</li>
     <li><strong>4 cl</strong> kookoskermaa</li>
-    <li><strong>Jäitä</strong></li>
-    <li><strong>Koristeeksi</strong> ananasviipale</li>
   </ul>
   <!-- Valmistusohje tulee tähän -->
   <ol>
@@ -21,8 +24,6 @@
       <li>Koristele ananasviipaleella</li>
   </ol>
   <p>
-    Coco Colada on herkullinen alkoholiton versio Pina Coladasta. Drinkin voi 
-    valmistaa myös kaupasta saatavasta pina colada -siirapista, mutta tuoreilla 
-    aineksilla lopputulos on paljon maukkaampi.
+    {{drinks[0].kuvaus}}
   </p>
 {% endblock %}
