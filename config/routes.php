@@ -40,8 +40,8 @@
     HelloWorldController::drinks_edit();
   });
   
-  $routes->get('/login', function() {
-    HelloWorldController::login();
+  $routes->get('/drinks_login', function() {
+    HelloWorldController::drinks_login();
   });
 
   $routes->get('/hiekkalaatikko', function() {
