@@ -23,5 +23,6 @@ CREATE TABLE Drinkkiainekset(
 CREATE TABLE Kayttaja(
     kayttaja_id SERIAL PRIMARY KEY, --id
     kayttajanimi varchar(20), --
-    salasana varchar(20)
+    salasana varchar(20),
+    rooli integer --peruskäyttäjä 0, ylläpitäjä 1
 );
