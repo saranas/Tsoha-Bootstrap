@@ -13,7 +13,7 @@
   });
   
   $routes->get('/addnew', function() {
-    DrinksController::create();
+    DrinksController::addnew();
   });
   
   $routes->get('/show', function() {

@@ -2,7 +2,7 @@
 
 class Drink extends BaseModel {
     
-    public $drinkki_id, $nimi, $tyyppi, $alkoholiton, $lasi, $kuvaus;
+    public $drinkki_id, $nimi, $tyyppi, $alkoholiton, $lasi, $kuvaus, $tyovaiheet;
     
     public function __construct($attributes = null) {
         parent::__construct($attributes);
@@ -22,7 +22,8 @@ class Drink extends BaseModel {
                 'tyyppi' => $row['tyyppi'],
                 'alkoholiton' => $row['alkoholiton'],
                 'lasi' => $row['lasi'],
-                'kuvaus' => $row['kuvaus']
+                'kuvaus' => $row['kuvaus'],
+                'tyovaiheet' => $row['tyovaiheet']
             ));
         }
         
@@ -41,7 +42,8 @@ class Drink extends BaseModel {
                 'tyyppi' => $row['tyyppi'],
                 'alkoholiton' => $row['alkoholiton'],
                 'lasi' => $row['lasi'],
-                'kuvaus' => $row['kuvaus']
+                'kuvaus' => $row['kuvaus'],
+                'tyovaiheet' => $row['tyovaiheet']
             ));
             
             return $drink;
@@ -53,10 +55,10 @@ class Drink extends BaseModel {
     public function save() {
         
         $query = DB::connection()->prepare('INSERT INTO Drinkki ('
-                . 'nimi, tyyppi, alkoholiton, lasi, kuvaus) VALUES '
-                . ':nimi, :tyyppi, :alkoholiton, :lasi, :kuvaus) RETURNING drinkki_id');
+                . 'nimi, tyyppi, alkoholiton, lasi, kuvaus, tyovaiheet) VALUES '
+                . ':nimi, :tyyppi, :alkoholiton, :lasi, :kuvaus, :tyovaiheet) RETURNING drinkki_id');
         
-        $query->execute(array('nimi' => $this->nimi, 'tyyppi' => $this->tyyppi,
+        $query->execute(array('nimi' => $this->nimi, 'tyyppi' => $this->tyyppi, 'tyovaiheet' => $this->tyovaiheet,
             'alkoholiton' => $this->alkoholiton, 'lasi' => $this->lasi, 'kuvaus' => $this->kuvaus));
         
         $row = $query->fetch();

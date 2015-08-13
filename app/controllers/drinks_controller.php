@@ -23,7 +23,8 @@ class DrinksController extends BaseController {
             'tyyppi' => $params['tyyppi'],
             'lasi' => $params['lasi'],
             'alkoholiton' => $params['alkoholiton'],
-            'kuvaus' => $params['kuvaus']
+            'kuvaus' => $params['kuvaus'],
+            'tyovaiheet' => $params['tyovaiheet']
         ));
         
         $drink->save();
