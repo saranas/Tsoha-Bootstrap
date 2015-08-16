@@ -11,7 +11,7 @@ class User extends BaseModel {
                 . 'LIMIT 1'
                 );
         
-        $query->execute(array('kayttaja_id' => $kayttaja_id));
+        $query->execute(array(':kayttaja_id' => $kayttaja_id));
         $row = $query->fetch();
         
         if($row) {
@@ -29,7 +29,7 @@ class User extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE kayttajanimi = :kayttajanimi AND salasana = :salasana LIMIT 1' 
                );
         
-        $query->execute( array('kayttajanimi' => $kayttajanimi, 'salasana' => $salasana));
+        $query->execute( array(':kayttajanimi' => $kayttajanimi, ':salasana' => $salasana));
         $row = $query->fetch();
         
         if($row) {

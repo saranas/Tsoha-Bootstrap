@@ -55,20 +55,24 @@ class Drink extends BaseModel {
 
     public function update() {
 
-        $query = DB::connection()->prepare(''
-                . 'UPDATE Drinkki'
-                . 'SET NIMI = :nimi, TYYPPI = :tyyppi, ALKOHOLITON = :alkoholiton,'
-                . 'LASI = :lasi, KUVAUS = :kuvaus, TYOVAIHEET = :tyovaiheet'
-                . 'RETURNING drinkki_id');
-
-        $query->execute(array(
-            'nimi' => $this->nimi,
-            'tyyppi' => $this->tyyppi,
-            'alkoholiton' => $this->alkoholiton,
-            'lasi' => $this->lasi,
-            'kuvaus' => $this->kuvaus,
-            'tyovaiheet' => $this->tyovaiheet
-        ));
+        $query = DB::connection()->prepare('UPDATE Drinkki SET nimi = :nimi, tyyppi = :tyyppi, alkoholiton = :alkoholiton, lasi = :lasi, kuvaus = :kuvaus, tyovaiheet = :tyovaiheet RETURNING drinkki_id');
+        
+        $query->bindValue('nimi', $this->nimi);
+        $query->bindValue('tyyppi', $this->tyyppi);
+        $query->bindValue('tyovaiheet', $this->tyovaiheet);
+        $query->bindValue('alkoholiton', $this->alkoholiton);
+        $query->bindValue('lasi', $this->lasi);
+        $query->bindValue('kuvaus', $this->kuvaus);
+        
+        $query->execute();
+//        $query->execute(array(
+//            'nimi' => $this->nimi,
+//            'tyyppi' => $this->tyyppi,
+//            'alkoholiton' => $this->alkoholiton,
+//            'lasi' => $this->lasi,
+//            'kuvaus' => $this->kuvaus,
+//            'tyovaiheet' => $this->tyovaiheet
+//        ));
 
         $row = $query->fetch();
         $this->drinkki_id = $row['drinkki_id'];
