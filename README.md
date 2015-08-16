@@ -1,5 +1,7 @@
 # Tietokantasovellus: Drinkkiarkisto
 
+Sisään voi kirjautua tunnuksella saara, salasanalla saara123.
+
 Yleisiä linkkejä:
 
 * [Sovellus](http://siakkane.users.cs.helsinki.fi/tsoha/drinks_list)
