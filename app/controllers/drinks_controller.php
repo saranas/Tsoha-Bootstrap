@@ -25,7 +25,7 @@ class DrinksController extends BaseController {
 
     public static function update($drinkki_id) {
         $params = $_POST;
-        
+
         $v = new Valitron\Validator($_POST);
         $v->rule('required', 'nimi');
         $v->rule('lengthMin', 'nimi', 1);
@@ -43,15 +43,15 @@ class DrinksController extends BaseController {
             'kuvaus' => $params['kuvaus'],
             'tyovaiheet' => $params['tyovaiheet']
         ));
-        
-        if ($v->validate()) {       
-           $drink->update();
+
+        if ($v->validate()) {
+            $drink->update();
             Redirect::to('/drinks/' . $drink->drinkki_id, array('message' => 'Reseptiä muokattu onnistuneesti'));
         } else {
             View::make('drinks/edit.html', array('attributes' => $drink));
         }
     }
-    
+
     public static function destroy($drinkki_id) {
         $drink = Drink::find($drinkki_id);
         $drink[0]->destroy($drinkki_id);
