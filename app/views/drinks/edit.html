@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa drinkkiä</h1>
+
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        <li>Viallinen syöte</li>
+<!--        {% for error in errors %}
+            <li>{{error}}</li>
+        {% endfor %}-->
+    </ul>
+</div>
+{% endif %}
+
+<form method='post' action='{{base_path}}/drinks/{{attributes[0].drinkki_id}}/edit'>
+    <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" name='nimi' class="form-control" value="{{attributes[0].nimi}}">
+    </div>
+    <div class="form-group">
+        <label>Tyyppi</label>
+        <input type="text" name='tyyppi' class="form-control" value="{{attributes[0].tyyppi}}">
+    </div>
+    <div class="form-group">
+        <label>Lasi</label>
+        <input type="text" name='lasi' class="form-control" value="{{attributes[0].lasi}}">
+    </div>
+
+    <div class="form-group">
+        <label>
+            <input type="checkbox" name="alkoholiton" checked>
+            Alkoholiton
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <input type='text' name='kuvaus' class='form-control' value="{{attributes[0].kuvaus}}">
+    </div>
+    <div class="form-group">
+        <label>Työvaiheet</label>
+        <input type='text' name='tyovaiheet' class='form-control' value="{{attributes[0].tyovaiheet}}">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+</form>
+{% endblock %}

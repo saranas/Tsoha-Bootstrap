@@ -28,6 +28,18 @@
     DrinksController::show($drinkki_id);
   });
   
+  $routes->get('/drinks/:drinkki_id/edit', function($drinkki_id) {
+    DrinksController::edit($drinkki_id);
+  });
+  
+  $routes->post('/drinks/:drinkki_id/edit', function($drinkki_id) {
+    DrinksController::update($drinkki_id);
+  });
+  
+  $routes->post('/drinks/:drinkki_id/destroy', function($drinkki_id) {
+    DrinksController::destroy($drinkki_id);
+  });
+  
   $routes->get('/drinks_list', function() {
     HelloWorldController::drinks_list();
   });

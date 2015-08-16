@@ -53,11 +53,43 @@ class Drink extends BaseModel {
         return null;
     }
 
+    public function update() {
+
+        $query = DB::connection()->prepare(''
+                . 'UPDATE Drinkki'
+                . 'SET NIMI = :nimi, TYYPPI = :tyyppi, ALKOHOLITON = :alkoholiton,'
+                . 'LASI = :lasi, KUVAUS = :kuvaus, TYOVAIHEET = :tyovaiheet'
+                . 'RETURNING drinkki_id');
+
+        $query->execute(array(
+            'nimi' => $this->nimi,
+            'tyyppi' => $this->tyyppi,
+            'alkoholiton' => $this->alkoholiton,
+            'lasi' => $this->lasi,
+            'kuvaus' => $this->kuvaus,
+            'tyovaiheet' => $this->tyovaiheet
+        ));
+
+        $row = $query->fetch();
+        $this->drinkki_id = $row['drinkki_id'];
+    }
+    
+    public function destroy($drinkki_id) {
+
+        $query = DB::connection()->prepare(''
+                . 'DELETE FROM Drinkki '
+                . 'WHERE drinkki_id = :drinkki_id'
+                );
+        $query->execute(array('drinkki_id' => $drinkki_id));
+
+    }
+    
     public function save() {
 
-        $query = DB::connection()->prepare('INSERT INTO Drinkki ('
-                . 'nimi, tyyppi, alkoholiton, lasi, kuvaus, tyovaiheet) VALUES ('
-                . ':nimi, :tyyppi, :alkoholiton, :lasi, :kuvaus, :tyovaiheet) RETURNING drinkki_id');
+        $query = DB::connection()->prepare(''
+                . 'INSERT INTO Drinkki (nimi, tyyppi, alkoholiton, lasi, kuvaus, tyovaiheet) '
+                . 'VALUES (:nimi, :tyyppi, :alkoholiton, :lasi, :kuvaus, :tyovaiheet) '
+                . 'RETURNING drinkki_id');
 
         $query->execute(array(
             'nimi' => $this->nimi,
