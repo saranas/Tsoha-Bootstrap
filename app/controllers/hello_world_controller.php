@@ -31,7 +31,16 @@ class HelloWorldController extends BaseController {
 
         $colada = Drink::find(1);
         $drinks = Drink::all();
+        
+        $colada = new Drink(array(
+            'nimi' => 'Juoma',
+            'tyyppi' => 'Shotti',
+            'lasi' => 'Hurrikaanilasi'
+        ));
+        
+        //$errors = $colada->validateDrink();
         // Kint-luokan dump-metodi tulostaa muuttujan arvon
+        //Kint::dump($errors);
         Kint::dump($drinks);
         Kint::dump($colada);
     }
