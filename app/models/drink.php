@@ -53,9 +53,9 @@ class Drink extends BaseModel {
         return null;
     }
 
-    public function update() {
+    public function update($drinkki_id) {
 
-        $query = DB::connection()->prepare('UPDATE Drinkki SET nimi = :nimi, tyyppi = :tyyppi, alkoholiton = :alkoholiton, lasi = :lasi, kuvaus = :kuvaus, tyovaiheet = :tyovaiheet RETURNING drinkki_id');
+        $query = DB::connection()->prepare('UPDATE Drinkki SET nimi = :nimi, tyyppi = :tyyppi, alkoholiton = :alkoholiton, lasi = :lasi, kuvaus = :kuvaus, tyovaiheet = :tyovaiheet WHERE drinkki_id = :drinkki_id RETURNING drinkki_id');
         
         $query->bindValue('nimi', $this->nimi);
         $query->bindValue('tyyppi', $this->tyyppi);
@@ -64,18 +64,13 @@ class Drink extends BaseModel {
         $query->bindValue('lasi', $this->lasi);
         $query->bindValue('kuvaus', $this->kuvaus);
         
+        $query->bindValue('drinkki_id', $drinkki_id);
+        
         $query->execute();
-//        $query->execute(array(
-//            'nimi' => $this->nimi,
-//            'tyyppi' => $this->tyyppi,
-//            'alkoholiton' => $this->alkoholiton,
-//            'lasi' => $this->lasi,
-//            'kuvaus' => $this->kuvaus,
-//            'tyovaiheet' => $this->tyovaiheet
-//        ));
-
+        
         $row = $query->fetch();
         $this->drinkki_id = $row['drinkki_id'];
+
     }
     
     public function destroy($drinkki_id) {

@@ -2,7 +2,13 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 <h1>{{drink[0].nimi}}</h1>
-{{message}}
+{% if message %}
+<div class="alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
 <!--  <img src="{{base_path}}/app/views/pinacolada.jpg" alt="Coco Colada" />-->
 <!-- Painikkeet tähän -->
 <p>

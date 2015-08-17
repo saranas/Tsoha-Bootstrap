@@ -30,9 +30,7 @@ class DrinksController extends BaseController {
         $v->rule('required', 'nimi');
         $v->rule('lengthMin', 'nimi', 1);
         $v->rule('lengthMax', 'nimi', 50);
-        $v->rule('lengthMin', 'tyyppi', 1);
         $v->rule('lengthMax', 'tyyppi', 30);
-        $v->rule('lengthMin', 'lasi', 1);
         $v->rule('lengthMax', 'lasi', 30);
 
         $drink = new Drink(array(
@@ -43,12 +41,12 @@ class DrinksController extends BaseController {
             'kuvaus' => $params['kuvaus'],
             'tyovaiheet' => $params['tyovaiheet']
         ));
-
+        
         if ($v->validate()) {
-            $drink->update();
+            $drink->update($drinkki_id);
             Redirect::to('/drinks/' . $drink->drinkki_id, array('message' => 'Reseptiä muokattu onnistuneesti'));
         } else {
-            View::make('drinks/edit.html', array('attributes' => $drink));
+            View::make('drinks/edit.html', array('errors' => $v->errors(), 'attributes' => array($drink)));
         }
     }
 
@@ -64,9 +62,7 @@ class DrinksController extends BaseController {
         $v->rule('required', 'nimi');
         $v->rule('lengthMin', 'nimi', 1);
         $v->rule('lengthMax', 'nimi', 50);
-        $v->rule('lengthMin', 'tyyppi', 1);
         $v->rule('lengthMax', 'tyyppi', 30);
-        $v->rule('lengthMin', 'lasi', 1);
         $v->rule('lengthMax', 'lasi', 30);
 
         if ($v->validate()) {

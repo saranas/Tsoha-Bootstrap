@@ -5,13 +5,10 @@ class User extends BaseModel {
     public $kayttajanimi, $kayttaja_id;
     
     public function find($kayttaja_id) {
-        $query = DB::connection()->prepare(''
-                . 'SELECT * FROM Kayttaja '
-                . 'WHERE kayttaja_id = :kayttaja_id'
-                . 'LIMIT 1'
-                );
+        $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE kayttaja_id = :kayttaja_id LIMIT 1');
         
-        $query->execute(array(':kayttaja_id' => $kayttaja_id));
+        $query->bindValue('kayttaja_id', $kayttaja_id);
+        $query->execute();
         $row = $query->fetch();
         
         if($row) {
@@ -28,8 +25,9 @@ class User extends BaseModel {
     public function authenticate($kayttajanimi, $salasana) {
         $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE kayttajanimi = :kayttajanimi AND salasana = :salasana LIMIT 1' 
                );
-        
-        $query->execute( array(':kayttajanimi' => $kayttajanimi, ':salasana' => $salasana));
+        $query->bindValue('kayttajanimi', $kayttajanimi);
+        $query->bindValue('salasana', $salasana);
+        $query->execute();
         $row = $query->fetch();
         
         if($row) {

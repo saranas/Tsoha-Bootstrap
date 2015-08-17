@@ -2,7 +2,13 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 <h1>Drinkkiarkisto</h1>
-<p>{{message}}</p>
+{% if message %}
+<div class="alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
 <p>
     <a href="{{base_path}}/addnew" class="btn btn-success">Lisää uusi drinkki</a>
 </p>
@@ -30,7 +36,10 @@
                 <label class="label label-success">Alkoholiton</label>
                 {% endif %}
             </td>
-            <th>{{forms.edit_button("#{base_path}/drinks/#{drink.drinkki_id}/edit")}}</th>
+            <th>
+                {{forms.edit_button("#{base_path}/drinks/#{drink.drinkki_id}/edit")}}
+                {{forms.destroy_button("#{base_path}/drinks/#{drink.drinkki_id}/destroy")}}
+            </th>
         </tr>
         {% endfor %}
     </tbody>
