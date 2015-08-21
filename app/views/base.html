@@ -41,13 +41,18 @@
                         <!-- Navigaation linkit -->
                         <li><a href="{{base_path}}">Drinkit</a></li>
                     </ul>
-                    <ul class="nav navbar-nav">
+
+                    {% if user_logged_in %}
+                    <form class="navbar-form navbar-right" method="post" action="{base_path}}/logout">
+                        <button type="submit" class="btn btn-default">Logout</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>{{user_logged_in.kayttajanimi}}</a></li>
+                    </ul> 
+                    {% else %}
+                    <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{base_path}}/login">Login</a></li>
                     </ul>
-                    {% if user_logged_in %}
-                    <ul class="nav navbar-nav">
-                        <li><a>{{user_logged_in.kayttajanimi}}</a></li>
-                    </ul>    
                     {% endif %}
                 </div>
             </div>

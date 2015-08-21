@@ -64,12 +64,16 @@ class DrinksController extends BaseController {
         $v->rule('lengthMax', 'nimi', 50);
         $v->rule('lengthMax', 'tyyppi', 30);
         $v->rule('lengthMax', 'lasi', 30);
+        
+        if (!isset($params['alkoholiton'])) {
+            $params['alkoholiton'] = 0;
+        }
 
         if ($v->validate()) {
             $drink = new Drink(array(
                 'nimi' => $params['nimi'],
                 'tyyppi' => $params['tyyppi'],
-                'alkoholiton' => $params['alkoholiton'],
+                //'alkoholiton' => $params['alkoholiton'],
                 'lasi' => $params['lasi'],
                 'kuvaus' => $params['kuvaus'],
                 'tyovaiheet' => $params['tyovaiheet']
