@@ -6,7 +6,6 @@ class Drink extends BaseModel {
 
     public function __construct($attributes = null) {
         parent::__construct($attributes);
-        //$this->validators = array()
     }
 
     public static function all() {
@@ -56,34 +55,49 @@ class Drink extends BaseModel {
     public function update($drinkki_id) {
 
         $query = DB::connection()->prepare('UPDATE Drinkki SET nimi = :nimi, tyyppi = :tyyppi, alkoholiton = :alkoholiton, lasi = :lasi, kuvaus = :kuvaus, tyovaiheet = :tyovaiheet WHERE drinkki_id = :drinkki_id RETURNING drinkki_id');
-        
+
         $query->bindValue('nimi', $this->nimi);
         $query->bindValue('tyyppi', $this->tyyppi);
         $query->bindValue('tyovaiheet', $this->tyovaiheet);
         $query->bindValue('alkoholiton', $this->alkoholiton);
         $query->bindValue('lasi', $this->lasi);
         $query->bindValue('kuvaus', $this->kuvaus);
-        
+
         $query->bindValue('drinkki_id', $drinkki_id);
-        
+
         $query->execute();
-        
+
         $row = $query->fetch();
         $this->drinkki_id = $row['drinkki_id'];
-
     }
-    
+
     public function destroy($drinkki_id) {
 
         $query = DB::connection()->prepare(''
                 . 'DELETE FROM Drinkki '
                 . 'WHERE drinkki_id = :drinkki_id'
-                );
+        );
         $query->execute(array('drinkki_id' => $drinkki_id));
-
     }
     
-    public function save() {
+    public function getIngredients($drinkki_id) {
+        $query = DB::connection()->prepare('SELECT * FROM Drinkkiainekset WHERE drinkki_id = :drinkki_id');
+        $query->execute(array(
+            'drinkki_id' => $drinkki_id
+        ));
+        
+        $rows = $query->fetchAll();
+        $ainekset = array();
+        
+        foreach ($rows as $row) {
+            $aines = Aines::find($row['aines_id']);
+            array_push($ainekset, $aines);
+        }
+        
+        return $ainekset;
+    }
+
+    public function save($ainekset) {
 
         $query = DB::connection()->prepare(''
                 . 'INSERT INTO Drinkki (nimi, tyyppi, alkoholiton, lasi, kuvaus, tyovaiheet) '
@@ -101,20 +115,15 @@ class Drink extends BaseModel {
 
         $row = $query->fetch();
         $this->drinkki_id = $row['drinkki_id'];
+
+        //Yhteystauluun lisääminen:
+        foreach ($ainekset as $aines) {
+            $query = DB::connection()->prepare('INSERT INTO Drinkkiainekset (drinkki_id, aines_id) VALUES (:drinkki_id, :aines_id)');
+            $query->execute(array(
+                'drinkki_id' => $this->drinkki_id,
+                'aines_id' => $aines
+            ));
+        }
     }
 
-//    public function validateDrink() {
-//        $v = new Valitron\Validator($attributes);
-//        $v->rule('required', 'nimi');
-//        $v->rule('lengthBetween', 'nimi', array(1, 50));
-//        $v->rule('lengthBetween', 'tyyppi', array(1, 30));
-//        $v->rule('lengthBetween', 'lasi', array(1, 30));
-//
-//        if ($v->validate()) {
-//            return TRUE;
-//        } else {
-//            // Errors
-//            return $v->errors();
-//        }
-//    }
 }

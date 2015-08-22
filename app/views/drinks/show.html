@@ -9,20 +9,28 @@
     </ul>
 </div>
 {% endif %}
-<!--  <img src="{{base_path}}/app/views/pinacolada.jpg" alt="Coco Colada" />-->
 <!-- Painikkeet tähän -->
 <p>
     {{forms.destroy_button("#{base_path}/drinks/#{drink[0].drinkki_id}/destroy")}}
     {{forms.edit_button("#{base_path}/drinks/#{drink[0].drinkki_id}/edit")}}
 </p>
 
-<!--  Tyyppi-->
 <p>
     Tyyppi: {{drink[0].tyyppi}}
 </p>
 
-
 <p>
     {{drink[0].kuvaus}}
 </p>
+
+<p>
+    Ainekset:
+</p>
+<ul>
+    {% for aines in ainekset %}
+    <li>{{aines.nimi}}</li>
+    {% endfor %}
+</ul>
+
+
 {% endblock %}

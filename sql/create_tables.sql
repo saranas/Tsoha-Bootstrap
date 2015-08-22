@@ -18,7 +18,7 @@ CREATE TABLE Drinkki(
 CREATE TABLE Drinkkiainekset(
     id SERIAL PRIMARY KEY,
     drinkki_id INTEGER REFERENCES Drinkki(drinkki_id) ON DELETE CASCADE,
-    aines_id INTEGER REFERENCES Aines(aines_id)
+    aines_id INTEGER REFERENCES Aines(aines_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Kayttaja(

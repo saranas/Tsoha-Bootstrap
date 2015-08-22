@@ -6,9 +6,6 @@
 <div class="alert alert-danger">
     <ul>
         <li>Viallinen syöte</li>
-<!--        {% for error in errors %}
-            <li>{{error}}</li>
-        {% endfor %}-->
     </ul>
 </div>
 {% endif %}
@@ -20,28 +17,31 @@
     </div>
     <div class="form-group">
         <label>Tyyppi</label>
-        <input type="text" name='tyyppi' class="form-control">
+        <select class="form-control" name="tyyppi">
+            <option value="Aperitiivi">Aperitiivi</option>
+            <option value="Shotti">Shotti</option>
+            <option value="Cocktail">Cocktail</option>
+            <option value="Sangria">Sangria</option>
+        </select>
     </div>
     <div class="form-group">
         <label>Lasi</label>
-        <input type="text" name='lasi' class="form-control">
+        <select class="form-control" name="lasi">
+            <option value="Hurrikaanilasi">Hurrikaanilasi</option>
+            <option value="Shottilasi">Shottilasi</option>
+            <option value="Cocktail-lasi">Cocktail-lasi</option>
+            <option value="Korkea lasi">Korkea lasi</option>
+        </select>
     </div>
 
-<!--    <div class="form-group">
+    <div class="form-group">
         <label>Ainesosat</label>
-        <input type="text" class="form-control" value="8cl ananasmehua">
-        <input type="text" class="form-control" value="4cl kookoskermaa">
-        <input type="text" class="form-control" value="Jäitä">
-        <input type="text" class="form-control" value="Koristeeksi ananasviipale">
+        <select class="form-control" name="ainekset[]" multiple="">
+            {% for aines in ainekset %}
+            <option value="{{aines.aines_id}}">{{aines.nimi}}</option>
+            {% endfor %}
+        </select>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Lisää ainesosa</button>
-    </div>
-
-    <div class="form-group">
-        <label>Työvaiheet</label>
-        <input type="text" class="form-control" value="Tee jotain">
-    </div>-->
 
     <div class="form-group">
         <label>
@@ -52,12 +52,9 @@
 
     <div class="form-group">
         <label>Kuvaus</label>
-        <input type='text' name='kuvaus' class='form-control'>
+        <textarea name='kuvaus' class='form-control'></textarea>
     </div>
-    <div class="form-group">
-        <label>Työvaiheet</label>
-        <input type='text' name='tyovaiheet' class='form-control'>
-    </div>
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>

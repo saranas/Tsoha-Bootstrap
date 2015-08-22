@@ -30,15 +30,12 @@
             Alkoholiton
         </label>
     </div>
-
+    
     <div class="form-group">
         <label>Kuvaus</label>
-        <input type='text' name='kuvaus' class='form-control' value="{{attributes[0].kuvaus}}">
+        <textarea name='kuvaus' class='form-control'>{{attributes[0].kuvaus}}</textarea>
     </div>
-    <div class="form-group">
-        <label>Työvaiheet</label>
-        <input type='text' name='tyovaiheet' class='form-control' value="{{attributes[0].tyovaiheet}}">
-    </div>
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>

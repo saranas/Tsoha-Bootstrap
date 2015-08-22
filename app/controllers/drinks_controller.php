@@ -1,6 +1,7 @@
 <?php
 
 require 'app/models/drink.php';
+require 'app/models/ingredient.php';
 
 class DrinksController extends BaseController {
 
@@ -11,11 +12,13 @@ class DrinksController extends BaseController {
 
     public static function show($drinkki_id) {
         $drink = Drink::find($drinkki_id);
-        View::make('drinks/show.html', array('drink' => $drink));
+        $ainekset = Drink::getIngredients($drinkki_id);
+        View::make('drinks/show.html', array('drink' => $drink, 'ainekset' => $ainekset));
     }
 
     public static function addnew() {
-        View::make('drinks/addnew.html');
+        $ainekset = Aines::all();
+        View::make('drinks/addnew.html', array('ainekset' => $ainekset));
     }
 
     public static function edit($drinkki_id) {
@@ -32,6 +35,11 @@ class DrinksController extends BaseController {
         $v->rule('lengthMax', 'nimi', 50);
         $v->rule('lengthMax', 'tyyppi', 30);
         $v->rule('lengthMax', 'lasi', 30);
+        
+        if (!isset($params['alkoholiton'])) {
+            $params['alkoholiton'] = 0;
+        }
+        $params['tyovaiheet'] = " ";
 
         $drink = new Drink(array(
             'nimi' => $params['nimi'],
@@ -58,6 +66,9 @@ class DrinksController extends BaseController {
 
     public static function store() {
         $params = $_POST;
+        
+        $ainekset = $params['ainekset'];
+        
         $v = new Valitron\Validator($_POST);
         $v->rule('required', 'nimi');
         $v->rule('lengthMin', 'nimi', 1);
@@ -68,18 +79,19 @@ class DrinksController extends BaseController {
         if (!isset($params['alkoholiton'])) {
             $params['alkoholiton'] = 0;
         }
+        $params['tyovaiheet'] = " ";
 
         if ($v->validate()) {
             $drink = new Drink(array(
                 'nimi' => $params['nimi'],
                 'tyyppi' => $params['tyyppi'],
-                //'alkoholiton' => $params['alkoholiton'],
+                'alkoholiton' => $params['alkoholiton'],
                 'lasi' => $params['lasi'],
                 'kuvaus' => $params['kuvaus'],
                 'tyovaiheet' => $params['tyovaiheet']
             ));
 
-            $drink->save();
+            $drink->save($ainekset);
             Redirect::to('/drinks/' . $drink->drinkki_id, array('message' => 'Resepti lisätty tietokantaan'));
         } else {
             View::make('drinks/addnew.html', array('errors' => $v->errors()));
