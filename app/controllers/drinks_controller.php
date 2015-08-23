@@ -4,6 +4,7 @@ require 'app/models/drink.php';
 require 'app/models/ingredient.php';
 
 class DrinksController extends BaseController {
+    
 
     public static function index() {
         $drinks = Drink::all();
@@ -23,7 +24,9 @@ class DrinksController extends BaseController {
 
     public static function edit($drinkki_id) {
         $drink = Drink::find($drinkki_id);
-        View::make('drinks/edit.html', array('attributes' => $drink));
+        $tyypit = $drink[0]->TYYPIT;
+        $lasit = $drink[0]->LASIT;
+        View::make('drinks/edit.html', array('attributes' => $drink, 'tyypit' => $tyypit, 'lasit' => $lasit));
     }
 
     public static function update($drinkki_id) {

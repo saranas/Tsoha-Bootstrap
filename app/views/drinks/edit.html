@@ -11,17 +11,30 @@
 {% endif %}
 
 <form method='post' action='{{base_path}}/drinks/{{attributes[0].drinkki_id}}/edit'>
+
     <div class="form-group">
         <label>Nimi</label>
         <input type="text" name='nimi' class="form-control" value="{{attributes[0].nimi}}">
     </div>
+
     <div class="form-group">
         <label>Tyyppi</label>
-        <input type="text" name='tyyppi' class="form-control" value="{{attributes[0].tyyppi}}">
+        <select class="form-control" name="tyyppi">
+            <option value="Aperitiivi">Aperitiivi</option>
+            <option value="Shotti">Shotti</option>
+            <option value="Cocktail">Cocktail</option>
+            <option value="Sangria">Sangria</option>
+        </select>
     </div>
+
     <div class="form-group">
         <label>Lasi</label>
-        <input type="text" name='lasi' class="form-control" value="{{attributes[0].lasi}}">
+        <select>
+            <option value="Hurrikaanilasi">Hurrikaanilasi</option>
+            <option value="Shottilasi">Shottilasi</option>
+            <option value="Cocktail-lasi">Cocktail-lasi</option>
+            <option value="Korkea lasi">Korkea lasi</option>
+        </select>
     </div>
 
     <div class="form-group">
@@ -30,7 +43,7 @@
             Alkoholiton
         </label>
     </div>
-    
+
     <div class="form-group">
         <label>Kuvaus</label>
         <textarea name='kuvaus' class='form-control'>{{attributes[0].kuvaus}}</textarea>

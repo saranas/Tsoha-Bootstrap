@@ -28,7 +28,7 @@
 </p>
 <ul>
     {% for aines in ainekset %}
-    <li>{{aines.nimi}}</li>
+    <li><a href="{{base_path}}/ingredients/{{aines.aines_id}}">{{aines.nimi}}</li>
     {% endfor %}
 </ul>
 

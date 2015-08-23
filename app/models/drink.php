@@ -3,9 +3,15 @@
 class Drink extends BaseModel {
 
     public $drinkki_id, $nimi, $tyyppi, $alkoholiton, $lasi, $kuvaus, $tyovaiheet;
+    public $TYYPIT = array('Shotti', 'Cocktail', 'Aperitiivi');
+    public $LASIT = array('Cocktail-lasi', 'Grogilasi', 'Hurrikaanilasi');
 
     public function __construct($attributes = null) {
         parent::__construct($attributes);
+    }
+    
+    public function getTyypit() {
+        return $this->tyypit;
     }
 
     public static function all() {

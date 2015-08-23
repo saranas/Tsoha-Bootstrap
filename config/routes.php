@@ -32,6 +32,10 @@ $routes->get('/drinks/:drinkki_id', 'check_logged_in', function($drinkki_id) {
     DrinksController::show($drinkki_id);
 });
 
+$routes->get('/ingredients/:aines_id', 'check_logged_in', function($aines_id) {
+    IngredientController::showIngredient($aines_id);
+});
+
 $routes->get('/drinks/:drinkki_id/edit', 'check_logged_in', function($drinkki_id) {
     DrinksController::edit($drinkki_id);
 });

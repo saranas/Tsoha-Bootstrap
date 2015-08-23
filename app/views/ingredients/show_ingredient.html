@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+<h1>{{aines.nimi}}</h1>
+{% if message %}
+<div class="alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
+<p>
+    Alkoholipitoisuus: {{aines.alkpitoisuus}}
+</p>
+
+
+{% endblock %}
