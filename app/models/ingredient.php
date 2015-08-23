@@ -54,5 +54,14 @@ class Aines extends BaseModel {
         $this->aines_id = $row['aines_id'];
 
     }
+    
+    public function destroy($aines_id) {
+
+        $query = DB::connection()->prepare(''
+                . 'DELETE FROM Aines '
+                . 'WHERE aines_id = :aines_id'
+        );
+        $query->execute(array('aines_id' => $aines_id));
+    }
 }
 

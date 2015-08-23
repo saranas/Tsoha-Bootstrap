@@ -4,6 +4,11 @@
   margin: 0px auto;
 }
 
+#footer{
+    position: relative;
+    bottom: 0px;
+}
+
 .navbar .container-fluid{
   max-width: 1200px;
   margin: 0px auto;
