@@ -5,8 +5,7 @@ Sisään voi kirjautua tunnuksella saara, salasanalla saara123.
 Yleisiä linkkejä:
 
 * [Sovellus](http://siakkane.users.cs.helsinki.fi/tsoha/drinks_list)
-* [Dokumentaatio](https://docs.google.com/document/d/17twWQLdmF2CDn7LGPUWCNhubbm1zdLZVW127tgZ0dj8/edit)
-Dokumentaatio GoogleDocsissa.
+* [Dokumentaatio](https://github.com/saranas/Tsoha-Bootstrap/blob/master/doc/tsoha-dokumentaatio.pdf)
 
 Linkkejä alustaviin sivunäkymiin:
 * [Juoman esittely](http://siakkane.users.cs.helsinki.fi/tsoha/drinks_show)
