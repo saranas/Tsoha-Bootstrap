@@ -3,15 +3,11 @@
 class Drink extends BaseModel {
 
     public $drinkki_id, $nimi, $tyyppi, $alkoholiton, $lasi, $kuvaus, $tyovaiheet;
-    public $TYYPIT = array('Shotti', 'Cocktail', 'Aperitiivi');
-    public $LASIT = array('Cocktail-lasi', 'Grogilasi', 'Hurrikaanilasi');
+    public $TYYPIT = array('Shotti', 'Cocktail', 'Aperitiivi', 'Sangria', 'Snapsi');
+    public $LASIT = array('Cocktail-lasi', 'Grogilasi', 'Hurrikaanilasi', 'Collins-lasi', 'Skumppalasi');
 
     public function __construct($attributes = null) {
         parent::__construct($attributes);
-    }
-    
-    public function getTyypit() {
-        return $this->tyypit;
     }
 
     public static function all() {
@@ -42,7 +38,7 @@ class Drink extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $drink[] = new Drink(array(
+            $drink = new Drink(array(
                 'drinkki_id' => $row['drinkki_id'],
                 'nimi' => $row['nimi'],
                 'tyyppi' => $row['tyyppi'],
@@ -58,7 +54,7 @@ class Drink extends BaseModel {
         return null;
     }
 
-    public function update($drinkki_id) {
+    public function update($drinkki_id, $ainekset) {
 
         $query = DB::connection()->prepare('UPDATE Drinkki SET nimi = :nimi, tyyppi = :tyyppi, alkoholiton = :alkoholiton, lasi = :lasi, kuvaus = :kuvaus, tyovaiheet = :tyovaiheet WHERE drinkki_id = :drinkki_id RETURNING drinkki_id');
 
@@ -75,6 +71,22 @@ class Drink extends BaseModel {
 
         $row = $query->fetch();
         $this->drinkki_id = $row['drinkki_id'];
+
+        //Yhteystaulun päivittäminen:
+        //Poistetaan vanhat ainekset
+        $query = DB::connection()->prepare('DELETE FROM Drinkkiainekset WHERE drinkki_id = :drinkki_id');
+        $query->execute(array(
+            'drinkki_id' => $this->drinkki_id
+        ));
+
+        //Lisätään päivitetty aineslista
+        foreach ($ainekset as $aines) {
+            $query = DB::connection()->prepare('INSERT INTO Drinkkiainekset (drinkki_id, aines_id) VALUES (:drinkki_id, :aines_id)');
+            $query->execute(array(
+                'drinkki_id' => $this->drinkki_id,
+                'aines_id' => $aines
+            ));
+        }
     }
 
     public function destroy($drinkki_id) {
@@ -85,21 +97,21 @@ class Drink extends BaseModel {
         );
         $query->execute(array('drinkki_id' => $drinkki_id));
     }
-    
+
     public function getIngredients($drinkki_id) {
         $query = DB::connection()->prepare('SELECT * FROM Drinkkiainekset WHERE drinkki_id = :drinkki_id');
         $query->execute(array(
             'drinkki_id' => $drinkki_id
         ));
-        
+
         $rows = $query->fetchAll();
         $ainekset = array();
-        
+
         foreach ($rows as $row) {
             $aines = Aines::find($row['aines_id']);
             array_push($ainekset, $aines);
         }
-        
+
         return $ainekset;
     }
 

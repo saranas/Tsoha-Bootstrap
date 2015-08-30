@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+<h1>Ainekset</h1>
+{% if message %}
+<div class="alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+<p>
+    <a href="{{base_path}}/ingredients/new_ingredient" class="btn btn-success">Lisää uusi aines</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Aineksen nimi</th>
+            <th>Alkoholipitoisuus</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Listataan ainekset-->
+        {% for aines in ainekset %}
+        <tr>
+            <td><a href="{{base_path}}/ingredients/{{aines.aines_id}}">{{aines.nimi}}</td>
+            <td>{{aines.alkpitoisuus}}</td>
+            <th>
+                {{forms.edit_ingredient("#{base_path}/ingredients/#{aines.aines_id}/edit_ingredient")}}
+                {{forms.destroy_ingredient("#{base_path}/ingredients/#{aines.aines_id}/destroy_ingredient")}}
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

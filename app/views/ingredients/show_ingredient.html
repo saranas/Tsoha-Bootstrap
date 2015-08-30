@@ -15,5 +15,10 @@
     Alkoholipitoisuus: {{aines.alkpitoisuus}}
 </p>
 
+<p>
+    {{forms.destroy_ingredient("#{base_path}/ingredients/#{aines.aines_id}/destroy_ingredient")}}
+    {{forms.edit_ingredient("#{base_path}/ingredients/#{aines.aines_id}/edit_ingredient")}}
+</p>
+
 
 {% endblock %}

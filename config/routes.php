@@ -24,16 +24,36 @@ $routes->get('/show', 'check_logged_in', function() {
     DrinksController::show();
 });
 
-$routes->get('/addnew', 'check_logged_in', function() {
-    DrinksController::addnew();
-});
-
 $routes->get('/drinks/:drinkki_id', 'check_logged_in', function($drinkki_id) {
     DrinksController::show($drinkki_id);
 });
 
+$routes->get('/ingredients/new_ingredient', 'check_logged_in', function() {
+    IngredientController::newIngredient();
+});
+
 $routes->get('/ingredients/:aines_id', 'check_logged_in', function($aines_id) {
     IngredientController::showIngredient($aines_id);
+});
+
+$routes->get('/ingredients', 'check_logged_in', function() {
+    IngredientController::listIngredients();
+});
+
+$routes->post('/ingredients', 'check_logged_in', function() {
+    IngredientController::store();
+});
+
+$routes->post('/ingredients/:aines_id/destroy_ingredient', function($aines_id) {
+    IngredientController::destroy($aines_id);
+});
+
+$routes->get('/ingredients/:aines_id/edit_ingredient', 'check_logged_in', function($aines_id) {
+    IngredientController::editIngredient($aines_id);
+});
+
+$routes->post('/ingredients/:aines_id/edit_ingredient', function($aines_id) {
+    IngredientController::update($aines_id);
 });
 
 $routes->get('/drinks/:drinkki_id/edit', 'check_logged_in', function($drinkki_id) {

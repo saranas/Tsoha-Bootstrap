@@ -42,7 +42,7 @@ class Aines extends BaseModel {
     
     public function update($aines_id) {
 
-        $query = DB::connection()->prepare('UPDATE Aines SET nimi = :nimi, alkpitoisuus = :alkpitoisuus, WHERE aines_id = :aines_id RETURNING aines_id');
+        $query = DB::connection()->prepare('UPDATE Aines SET nimi = :nimi, alkpitoisuus = :alkpitoisuus WHERE aines_id = :aines_id RETURNING aines_id');
         
         $query->bindValue('nimi', $this->nimi);
         $query->bindValue('alkpitoisuus', $this->alkpitoisuus);
@@ -62,6 +62,22 @@ class Aines extends BaseModel {
                 . 'WHERE aines_id = :aines_id'
         );
         $query->execute(array('aines_id' => $aines_id));
+    }
+    
+    public function save() {
+
+        $query = DB::connection()->prepare(''
+                . 'INSERT INTO Aines (nimi, alkpitoisuus) '
+                . 'VALUES (:nimi, :alkpitoisuus) '
+                . 'RETURNING aines_id');
+
+        $query->execute(array(
+            'nimi' => $this->nimi,
+            'alkpitoisuus' => $this->alkpitoisuus
+        ));
+
+        $row = $query->fetch();
+        $this->aines_id = $row['aines_id'];
     }
 }
 

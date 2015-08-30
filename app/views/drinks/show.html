@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% import "macros/forms.html" as forms %}
-<h1>{{drink[0].nimi}}</h1>
+<h1>{{drink.nimi}}</h1>
 {% if message %}
 <div class="alert-success">
     <ul>
@@ -11,16 +11,16 @@
 {% endif %}
 <!-- Painikkeet tähän -->
 <p>
-    {{forms.destroy_button("#{base_path}/drinks/#{drink[0].drinkki_id}/destroy")}}
-    {{forms.edit_button("#{base_path}/drinks/#{drink[0].drinkki_id}/edit")}}
+    {{forms.destroy_button("#{base_path}/drinks/#{drink.drinkki_id}/destroy")}}
+    {{forms.edit_button("#{base_path}/drinks/#{drink.drinkki_id}/edit")}}
 </p>
 
 <p>
-    Tyyppi: {{drink[0].tyyppi}}
+    Tyyppi: {{drink.tyyppi}}
 </p>
 
 <p>
-    {{drink[0].kuvaus}}
+    {{drink.kuvaus}}
 </p>
 
 <p>

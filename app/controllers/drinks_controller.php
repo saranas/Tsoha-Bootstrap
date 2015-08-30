@@ -4,7 +4,6 @@ require 'app/models/drink.php';
 require 'app/models/ingredient.php';
 
 class DrinksController extends BaseController {
-    
 
     public static function index() {
         $drinks = Drink::all();
@@ -18,27 +17,33 @@ class DrinksController extends BaseController {
     }
 
     public static function addnew() {
-        $ainekset = Aines::all();
-        View::make('drinks/addnew.html', array('ainekset' => $ainekset));
+        $aineslista = Aines::all();
+        $drink = new Drink(array('nimi' => '', 'tyyppi' => '', 'lasi' => '', 'alkoholiton' => FALSE, 'kuvaus' => '', 'tyovaiheet' => ''));
+        View::make('drinks/addnew.html', array('aineslista' => $aineslista, 'ainekset' => array(), 'attributes' => $drink));
     }
 
     public static function edit($drinkki_id) {
         $drink = Drink::find($drinkki_id);
-        $tyypit = $drink[0]->TYYPIT;
-        $lasit = $drink[0]->LASIT;
-        View::make('drinks/edit.html', array('attributes' => $drink, 'tyypit' => $tyypit, 'lasit' => $lasit));
+        $ainekset = $drink->getIngredients($drinkki_id);
+        $ainesidt = array();
+        foreach ($ainekset as $aines) {
+            $ainesidt[] = $aines->aines_id;
+        }
+        $aineslista = Aines::all();
+        View::make('drinks/edit.html', array('attributes' => $drink, 'ainekset' => $ainesidt, 'aineslista' => $aineslista));
     }
 
     public static function update($drinkki_id) {
         $params = $_POST;
 
         $v = new Valitron\Validator($_POST);
-        $v->rule('required', 'nimi');
-        $v->rule('lengthMin', 'nimi', 1);
-        $v->rule('lengthMax', 'nimi', 50);
-        $v->rule('lengthMax', 'tyyppi', 30);
-        $v->rule('lengthMax', 'lasi', 30);
-        
+        $v->rule('required', 'nimi')->message('{field} pitää antaa')->label('Nimi');
+        $v->rule('required', 'ainekset')->message('Valitse vähintään yksi {field}')->label('Aines');
+        $v->rule('lengthMin', 'nimi', 1)->message('{field} pitää olla 1-50 merkkiä pitkä')->label('Nimen');
+        $v->rule('lengthMax', 'nimi', 50)->message('{field} pitää olla 1-50 merkkiä pitkä')->label('Nimen');
+        $v->rule('lengthMax', 'tyyppi', 30)->message('{field} saa olla korkeintaan 30 merkkiä pitkä')->label('Tyyppi');
+        $v->rule('lengthMax', 'lasi', 30)->message('{field} nimi saa olla korkeintaan 30 merkkiä pitkä')->label('Lasin');
+
         if (!isset($params['alkoholiton'])) {
             $params['alkoholiton'] = 0;
         }
@@ -52,52 +57,66 @@ class DrinksController extends BaseController {
             'kuvaus' => $params['kuvaus'],
             'tyovaiheet' => $params['tyovaiheet']
         ));
-        
+
         if ($v->validate()) {
-            $drink->update($drinkki_id);
+            $ainekset = $params['ainekset'];
+            $drink->update($drinkki_id, $ainekset);
             Redirect::to('/drinks/' . $drink->drinkki_id, array('message' => 'Reseptiä muokattu onnistuneesti'));
         } else {
-            View::make('drinks/edit.html', array('errors' => $v->errors(), 'attributes' => array($drink)));
+            if (!isset($params['ainekset'])) {
+                $ainekset = array();
+            } else {
+                $ainekset = $params['ainekset'];
+            }
+            $aineslista = Aines::all();
+            $drink->drinkki_id = $drinkki_id;
+            View::make('drinks/edit.html', array('errors' => $v->errors(), 'attributes' => $drink, 'ainekset' => $ainekset, 'aineslista' => $aineslista));
         }
     }
 
     public static function destroy($drinkki_id) {
         $drink = Drink::find($drinkki_id);
-        $drink[0]->destroy($drinkki_id);
+        $drink->destroy($drinkki_id);
         Redirect::to('/drinks', array('message' => 'Juoma poistettu onnistuneesti'));
     }
 
     public static function store() {
         $params = $_POST;
-        
-        $ainekset = $params['ainekset'];
-        
+
         $v = new Valitron\Validator($_POST);
-        $v->rule('required', 'nimi');
-        $v->rule('lengthMin', 'nimi', 1);
-        $v->rule('lengthMax', 'nimi', 50);
-        $v->rule('lengthMax', 'tyyppi', 30);
-        $v->rule('lengthMax', 'lasi', 30);
-        
+        $v->rule('required', 'nimi')->message('{field} pitää antaa')->label('Nimi');
+        $v->rule('required', 'ainekset')->message('Valitse vähintään yksi {field}')->label('Aines');
+        $v->rule('lengthMin', 'nimi', 1)->message('{field} pitää olla 1-50 merkkiä pitkä')->label('Nimi');
+        $v->rule('lengthMax', 'nimi', 50)->message('{field} pitää olla 1-50 merkkiä pitkä')->label('Nimi');
+        $v->rule('lengthMax', 'tyyppi', 30)->message('{field} saa olla korkeintaan 30 merkkiä pitkä')->label('Tyyppi');
+        $v->rule('lengthMax', 'lasi', 30)->message('{field} nimi saa olla korkeintaan 30 merkkiä pitkä')->label('Lasin');
+
         if (!isset($params['alkoholiton'])) {
             $params['alkoholiton'] = 0;
         }
         $params['tyovaiheet'] = " ";
 
-        if ($v->validate()) {
-            $drink = new Drink(array(
-                'nimi' => $params['nimi'],
-                'tyyppi' => $params['tyyppi'],
-                'alkoholiton' => $params['alkoholiton'],
-                'lasi' => $params['lasi'],
-                'kuvaus' => $params['kuvaus'],
-                'tyovaiheet' => $params['tyovaiheet']
-            ));
+        $drink = new Drink(array(
+            'nimi' => $params['nimi'],
+            'tyyppi' => $params['tyyppi'],
+            'alkoholiton' => $params['alkoholiton'],
+            'lasi' => $params['lasi'],
+            'kuvaus' => $params['kuvaus'],
+            'tyovaiheet' => $params['tyovaiheet']
+        ));
 
+        if ($v->validate()) {
+            $ainekset = $params['ainekset'];
             $drink->save($ainekset);
             Redirect::to('/drinks/' . $drink->drinkki_id, array('message' => 'Resepti lisätty tietokantaan'));
         } else {
-            View::make('drinks/addnew.html', array('errors' => $v->errors()));
+            if (!isset($params['ainekset'])) {
+                $ainekset = array();
+            } else {
+                $ainekset = $params['ainekset'];
+            }
+            $aineslista = Aines::all();
+            View::make('drinks/addnew.html', array('errors' => $v->errors(), 'ainekset' => $ainekset, 'aineslista' => $aineslista, 'attributes' => $drink));
         }
     }
 

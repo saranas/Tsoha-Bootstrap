@@ -5,48 +5,76 @@
 {% if errors %}
 <div class="alert alert-danger">
     <ul>
-        <li>Viallinen syöte</li>
+        {% for error in errors %}
+        {% for err in error %}
+        <li>{{err}}</li>
+        {% endfor %}
+        {% endfor %}
     </ul>
 </div>
 {% endif %}
 
-<form method='post' action='{{base_path}}/drinks/{{attributes[0].drinkki_id}}/edit'>
+<form method='post' action='{{base_path}}/drinks/{{attributes.drinkki_id}}/edit'>
 
     <div class="form-group">
         <label>Nimi</label>
-        <input type="text" name='nimi' class="form-control" value="{{attributes[0].nimi}}">
+        <input type="text" name='nimi' class="form-control" value="{{attributes.nimi}}">
     </div>
 
     <div class="form-group">
         <label>Tyyppi</label>
         <select class="form-control" name="tyyppi">
-            <option value="Aperitiivi">Aperitiivi</option>
-            <option value="Shotti">Shotti</option>
-            <option value="Cocktail">Cocktail</option>
-            <option value="Sangria">Sangria</option>
+            {% for tyyppi in attributes.TYYPIT %}
+            {% if tyyppi == attributes.tyyppi %}
+            <option value="{{tyyppi}}" selected="">{{tyyppi}}</option>
+            {% else %}
+            <option value="{{tyyppi}}">{{tyyppi}}</option>
+            {% endif %}
+            {% endfor %}
         </select>
     </div>
 
     <div class="form-group">
         <label>Lasi</label>
-        <select>
-            <option value="Hurrikaanilasi">Hurrikaanilasi</option>
-            <option value="Shottilasi">Shottilasi</option>
-            <option value="Cocktail-lasi">Cocktail-lasi</option>
-            <option value="Korkea lasi">Korkea lasi</option>
+        <select class="form-control" name="lasi">
+            {% for lasi in attributes.LASIT %}
+            {% if lasi == attributes.lasi %}
+            <option value="{{lasi}}" selected="">{{lasi}}</option>
+            {% else %}
+            <option value="{{lasi}}">{{lasi}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Ainesosat</label>
+        <p>Valitse useampi pitämällä pohjassa ctrl/cmd</p>
+        <select class="form-control" name="ainekset[]" multiple="">
+            {% for aines in aineslista %}
+            {% if aines.aines_id in ainekset %}
+            <option value="{{aines.aines_id}}" selected="">{{aines.nimi}}</option>
+            {% else %}
+            <option value="{{aines.aines_id}}">{{aines.nimi}}</option>
+            {% endif %}
+            {% endfor %}
         </select>
     </div>
 
     <div class="form-group">
         <label>
-            <input type="checkbox" name="alkoholiton" checked>
+            {% if attributes.alkoholiton == true %}
+            <input type="checkbox" name="alkoholiton" checked="">
+            {% else %}
+            <input type="checkbox" name="alkoholiton">
+            {% endif %}
             Alkoholiton
         </label>
     </div>
 
     <div class="form-group">
         <label>Kuvaus</label>
-        <textarea name='kuvaus' class='form-control'>{{attributes[0].kuvaus}}</textarea>
+        <textarea name='kuvaus' class='form-control'>{{attributes.kuvaus}}</textarea>
     </div>
 
     <div class="form-group">
